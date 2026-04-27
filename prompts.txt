@@ -1,0 +1,17 @@
+The aim 01: Design a creative Vue 3 SPA concept that exceeds a normal DummyJSON store demo and feels eye-catching enough for an A+ mini project.
+Actual prompt: Create a highly creative Vue 3 + TypeScript + Tailwind CSS SPA concept for a university mini project using DummyJSON products, with a futuristic neon visual style, reusable components, and all bonus features.
+
+The aim 02: Define strict TypeScript interfaces for the DummyJSON product and authentication responses without using any types.
+Actual prompt: Generate strict TypeScript interfaces for DummyJSON product objects, product list responses, category responses, login payloads, and auth session responses with zero any usage.
+
+The aim 03: Plan the component architecture so the app is split into reusable parts instead of one large file.
+Actual prompt: Suggest a clean Vue SPA architecture with route pages, reusable UI components, Pinia stores, a service layer, utilities, and composables for theme handling.
+
+The aim 04: Build the filtering experience and product detail flow.
+Actual prompt: Outline the logic for search, category filters, sorting, dynamic product routes, and a premium detail page with related products and review panels.
+
+The aim 05: Implement the bonus features in a realistic way.
+Actual prompt: Show how to add DummyJSON login simulation, cart persistence, favorites persistence, Vue Router dynamic routing, and dark mode with localStorage.
+
+The aim 06: Prepare the documentation package required for submission.
+Actual prompt: Write a concise README, prompts log, and report structure summarizing the features, architecture, and bonus elements of a Vue SPA mini project.

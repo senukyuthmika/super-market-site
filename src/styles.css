@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  --ice-bg: #6f8799;
+  --ice-bg-deep: #627b8e;
+  --ice-surface: rgba(220, 233, 242, 0.14);
+  --ice-surface-strong: rgba(233, 241, 246, 0.18);
+  --ice-border: rgba(255, 255, 255, 0.24);
+  --ice-text: #f5f8fb;
+  --ice-text-soft: rgba(245, 248, 251, 0.7);
+  --ice-text-faint: rgba(245, 248, 251, 0.42);
+  --ice-dark: #13202b;
+  --ice-dark-soft: rgba(19, 32, 43, 0.72);
+}
+
+html {
+  min-height: 100%;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.18), transparent 24%),
+    radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.12), transparent 18%),
+    linear-gradient(180deg, var(--ice-bg) 0%, var(--ice-bg-deep) 100%);
+}
+
+html.dark {
+  color-scheme: dark;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.06), transparent 24%),
+    radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.04), transparent 18%),
+    linear-gradient(180deg, #1f3240 0%, #192833 100%);
+}
+
+body {
+  min-height: 100vh;
+  background: transparent;
+  color: var(--ice-text);
+  font-family: "Inter", sans-serif;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+::selection {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+.arctic-page {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.arctic-panel {
+  background: var(--ice-surface);
+  border: 1px solid var(--ice-border);
+  box-shadow: 0 12px 30px rgba(16, 29, 41, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 2rem;
+}
+
+.arctic-panel-strong {
+  background: var(--ice-surface-strong);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 14px 36px rgba(16, 29, 41, 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 2rem;
+}
+
+.arctic-display {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+  text-transform: uppercase;
+  color: var(--ice-text);
+}
+
+.arctic-title {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--ice-text);
+}
+
+.arctic-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ice-text-faint);
+}
+
+.arctic-body {
+  color: var(--ice-text-soft);
+}
+
+.arctic-nav-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 1.25rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--ice-text);
+  transition: 180ms ease;
+}
+
+.arctic-nav-chip:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.arctic-nav-chip.is-active {
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ice-dark);
+  border-color: rgba(255, 255, 255, 0.92);
+}
+
+.arctic-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding: 0 1.4rem;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.94);
+  color: #13202b;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  transition: 180ms ease;
+}
+
+.arctic-button:hover {
+  transform: translateY(-1px);
+  background: #ffffff;
+}
+
+.arctic-button--ghost {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--ice-text);
+}
+
+.arctic-button--ghost:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.arctic-stat {
+  border-radius: 1.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1.25rem;
+}
+
+.arctic-card {
+  overflow: hidden;
+  border-radius: 0;
+  background: transparent;
+  transition: 180ms ease;
+}
+
+.arctic-card:hover {
+  transform: translateY(-4px);
+}
+
+.arctic-card-image {
+  overflow: hidden;
+  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.arctic-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 240ms ease;
+}
+
+.arctic-card:hover .arctic-card-image img {
+  transform: scale(1.025);
+}
+
+.arctic-price {
+  color: var(--ice-text);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.arctic-muted {
+  color: var(--ice-text-faint);
+}
+
+.arctic-divider {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.dark .arctic-panel,
+.dark .arctic-panel-strong,
+.dark .arctic-stat {
+  background: rgba(255, 255, 255, 0.05);
+}
