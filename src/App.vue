@@ -7,30 +7,31 @@
       <div class="noise-overlay"></div>
     </div>
 
-    <NavBar />
+    <NavBar v-if="!isAuthPage" />
 
-    <main class="mx-auto max-w-7xl px-4 pb-16 pt-6 sm:px-6 lg:px-8">
+    <main :class="isAuthPage ? '' : 'mx-auto max-w-7xl px-4 pb-16 pt-6 sm:px-6 lg:px-8'">
       <RouterView />
     </main>
 
-    <AppFooter />
+    <AppFooter v-if="!isAuthPage" />
     <CartDrawer />
-    <AuthModal />
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { RouterView } from 'vue-router';
+import { computed, onMounted } from 'vue';
+import { RouterView, useRoute } from 'vue-router';
 import NavBar from './components/NavBar.vue';
 import AppFooter from './components/AppFooter.vue';
 import CartDrawer from './components/CartDrawer.vue';
-import AuthModal from './components/AuthModal.vue';
 import { useTheme } from './composables/useTheme';
 import { useAuthStore } from './stores/auth';
 
+const route = useRoute();
 const { applyTheme } = useTheme();
 const authStore = useAuthStore();
+
+const isAuthPage = computed(() => Boolean(route.meta.authPage));
 
 onMounted(() => {
   applyTheme();

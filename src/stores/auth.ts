@@ -1,9 +1,21 @@
 import { defineStore } from 'pinia';
-import { getCurrentAuthUser, loginUser } from '../services/dummyJson';
 import type { AuthSession, AuthUser } from '../types';
 import { readStorage, removeStorage, writeStorage } from '../utils/storage';
 
 const AUTH_KEY = 'astramart.auth';
+
+const DEMO_EMAIL = 'nova@astramart.space';
+const DEMO_PASSWORD = 'astramart';
+
+const DEMO_USER: AuthUser = {
+  id: 1,
+  username: 'nova',
+  email: DEMO_EMAIL,
+  firstName: 'Nova',
+  lastName: 'Alex',
+  gender: 'female',
+  image: 'https://i.pravatar.cc/150?u=nova-astramart',
+};
 
 interface StoredAuthState {
   user: AuthUser | null;
@@ -16,6 +28,14 @@ const initialState = readStorage<StoredAuthState>(AUTH_KEY, {
   accessToken: '',
   refreshToken: '',
 });
+
+function createDemoSession(): AuthSession {
+  return {
+    ...DEMO_USER,
+    accessToken: 'demo-access-token',
+    refreshToken: 'demo-refresh-token',
+  };
+}
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -45,12 +65,19 @@ export const useAuthStore = defineStore('auth', {
       this.error = '';
       this.persist();
     },
-    async login(username: string, password: string): Promise<void> {
+    async login(email: string, password: string): Promise<void> {
       this.loading = true;
       this.error = '';
+
       try {
-        const session = await loginUser({ username, password, expiresInMins: 30 });
-        this.setSession(session);
+        await new Promise((resolve) => window.setTimeout(resolve, 500));
+
+        const normalizedEmail = email.trim().toLowerCase();
+        if (normalizedEmail !== DEMO_EMAIL || password !== DEMO_PASSWORD) {
+          throw new Error('Invalid email or password. Use nova@astramart.space / astramart.');
+        }
+
+        this.setSession(createDemoSession());
       } catch (error) {
         this.error = error instanceof Error ? error.message : 'Login failed. Please try again.';
         throw error;
@@ -63,15 +90,8 @@ export const useAuthStore = defineStore('auth', {
         return;
       }
 
-      try {
-        this.loading = true;
-        this.user = await getCurrentAuthUser(this.accessToken);
-        this.persist();
-      } catch {
-        this.logout();
-      } finally {
-        this.loading = false;
-      }
+      this.user = DEMO_USER;
+      this.persist();
     },
     logout(): void {
       this.user = null;

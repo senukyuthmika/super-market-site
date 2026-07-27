@@ -3,7 +3,7 @@
     <article
       v-for="stat in stats"
       :key="stat.label"
-      class="rounded-[1.75rem] border border-white/20 bg-white/10 p-5 shadow-xl shadow-slate-950/5 backdrop-blur-xl transition hover:-translate-y-0.5 dark:bg-slate-900/30"
+      class="rounded-[1.75rem] glass-panel p-5 transition hover:-translate-y-0.5"
     >
       <p class="text-sm text-slate-500 dark:text-slate-400">{{ stat.label }}</p>
       <p class="mt-2 text-3xl font-black tracking-tight text-slate-950 dark:text-white">{{ stat.value }}</p>

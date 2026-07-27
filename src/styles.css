@@ -1,41 +1,128 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
+/* Class-based dark mode — matches the theme toggle on <html class="dark"> */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   color-scheme: light;
-  --ice-bg: #6f8799;
-  --ice-bg-deep: #627b8e;
-  --ice-surface: rgba(220, 233, 242, 0.14);
-  --ice-surface-strong: rgba(233, 241, 246, 0.18);
-  --ice-border: rgba(255, 255, 255, 0.24);
-  --ice-text: #f5f8fb;
-  --ice-text-soft: rgba(245, 248, 251, 0.7);
-  --ice-text-faint: rgba(245, 248, 251, 0.42);
-  --ice-dark: #13202b;
-  --ice-dark-soft: rgba(19, 32, 43, 0.72);
+
+  --page-text: #0f172a;
+  --page-text-soft: #475569;
+  --page-text-faint: #64748b;
+  --page-surface: rgba(255, 255, 255, 0.72);
+  --page-surface-strong: rgba(255, 255, 255, 0.88);
+  --page-border: rgba(15, 23, 42, 0.1);
+  --page-shadow: rgba(15, 23, 42, 0.08);
+
+  --orb-one: rgba(56, 189, 248, 0.35);
+  --orb-two: rgba(168, 85, 247, 0.28);
+  --orb-three: rgba(236, 72, 153, 0.2);
+  --orb-opacity: 0.7;
+  --noise-opacity: 0.03;
+
+  --ice-bg: #e8f2ff;
+  --ice-bg-deep: #f3e8ff;
+  --ice-surface: rgba(255, 255, 255, 0.72);
+  --ice-surface-strong: rgba(255, 255, 255, 0.88);
+  --ice-border: rgba(15, 23, 42, 0.1);
+  --ice-text: #0f172a;
+  --ice-text-soft: #475569;
+  --ice-text-faint: #64748b;
+  --ice-dark: #0f172a;
+  --ice-dark-soft: rgba(15, 23, 42, 0.72);
 }
 
 html {
   min-height: 100%;
   background:
-    radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.18), transparent 24%),
-    radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.12), transparent 18%),
-    linear-gradient(180deg, var(--ice-bg) 0%, var(--ice-bg-deep) 100%);
+    radial-gradient(circle at 12% 18%, rgba(56, 189, 248, 0.28), transparent 30%),
+    radial-gradient(circle at 88% 12%, rgba(168, 85, 247, 0.22), transparent 34%),
+    radial-gradient(circle at 70% 82%, rgba(244, 114, 182, 0.16), transparent 36%),
+    linear-gradient(165deg, #eef6ff 0%, #f5eeff 48%, #e8f4ff 100%);
 }
 
 html.dark {
   color-scheme: dark;
+
+  --page-text: #f8fafc;
+  --page-text-soft: #cbd5e1;
+  --page-text-faint: #94a3b8;
+  --page-surface: rgba(15, 23, 42, 0.45);
+  --page-surface-strong: rgba(15, 23, 42, 0.62);
+  --page-border: rgba(255, 255, 255, 0.14);
+  --page-shadow: rgba(2, 6, 23, 0.35);
+
+  --orb-one: rgba(56, 189, 248, 0.5);
+  --orb-two: rgba(168, 85, 247, 0.42);
+  --orb-three: rgba(236, 72, 153, 0.3);
+  --orb-opacity: 0.85;
+  --noise-opacity: 0.05;
+
+  --ice-bg: #120a22;
+  --ice-bg-deep: #07040f;
+  --ice-surface: rgba(255, 255, 255, 0.08);
+  --ice-surface-strong: rgba(255, 255, 255, 0.12);
+  --ice-border: rgba(255, 255, 255, 0.16);
+  --ice-text: #f8fafc;
+  --ice-text-soft: #cbd5e1;
+  --ice-text-faint: #94a3b8;
+  --ice-dark: #020617;
+  --ice-dark-soft: rgba(2, 6, 23, 0.72);
+
   background:
-    radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.06), transparent 24%),
-    radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.04), transparent 18%),
-    linear-gradient(180deg, #1f3240 0%, #192833 100%);
+    radial-gradient(circle at 12% 18%, rgba(56, 189, 248, 0.2), transparent 28%),
+    radial-gradient(circle at 88% 12%, rgba(168, 85, 247, 0.26), transparent 32%),
+    radial-gradient(circle at 70% 80%, rgba(236, 72, 153, 0.16), transparent 36%),
+    linear-gradient(165deg, #18102e 0%, #0e081a 48%, #07040f 100%);
+}
+
+.orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(64px);
+  opacity: var(--orb-opacity);
+  transition: background 300ms ease, opacity 300ms ease;
+}
+
+.orb-one {
+  top: -8%;
+  left: -6%;
+  width: 28rem;
+  height: 28rem;
+  background: var(--orb-one);
+}
+
+.orb-two {
+  top: 12%;
+  right: -10%;
+  width: 32rem;
+  height: 32rem;
+  background: var(--orb-two);
+}
+
+.orb-three {
+  bottom: -12%;
+  left: 30%;
+  width: 26rem;
+  height: 26rem;
+  background: var(--orb-three);
+}
+
+.noise-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: var(--noise-opacity);
+  transition: opacity 300ms ease;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 body {
   min-height: 100vh;
   background: transparent;
-  color: var(--ice-text);
+  color: var(--page-text);
   font-family: "Inter", sans-serif;
+  transition: color 300ms ease;
 }
 
 #app {
@@ -43,8 +130,30 @@ body {
 }
 
 ::selection {
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(56, 189, 248, 0.28);
+  color: inherit;
+}
+
+html.dark ::selection {
+  background: rgba(56, 189, 248, 0.35);
   color: #ffffff;
+}
+
+/* Shared glass panel utility */
+.glass-panel {
+  background: var(--page-surface);
+  border: 1px solid var(--page-border);
+  box-shadow: 0 12px 30px var(--page-shadow);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.glass-panel-strong {
+  background: var(--page-surface-strong);
+  border: 1px solid var(--page-border);
+  box-shadow: 0 16px 36px var(--page-shadow);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
 
 .arctic-page {
@@ -56,7 +165,7 @@ body {
 .arctic-panel {
   background: var(--ice-surface);
   border: 1px solid var(--ice-border);
-  box-shadow: 0 12px 30px rgba(16, 29, 41, 0.08);
+  box-shadow: 0 12px 30px var(--page-shadow);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-radius: 2rem;
@@ -64,8 +173,8 @@ body {
 
 .arctic-panel-strong {
   background: var(--ice-surface-strong);
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  box-shadow: 0 14px 36px rgba(16, 29, 41, 0.1);
+  border: 1px solid var(--ice-border);
+  box-shadow: 0 14px 36px var(--page-shadow);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-radius: 2rem;
@@ -107,18 +216,24 @@ body {
   min-height: 52px;
   padding: 0 1.25rem;
   border-radius: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--ice-text);
+  border: 1px solid var(--page-border);
+  background: var(--page-surface);
+  color: var(--page-text);
   transition: 180ms ease;
 }
 
 .arctic-nav-chip:hover {
   transform: translateY(-1px);
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--page-surface-strong);
 }
 
 .arctic-nav-chip.is-active {
+  background: var(--ice-dark);
+  color: #ffffff;
+  border-color: var(--ice-dark);
+}
+
+html.dark .arctic-nav-chip.is-active {
   background: rgba(255, 255, 255, 0.92);
   color: var(--ice-dark);
   border-color: rgba(255, 255, 255, 0.92);
@@ -131,9 +246,9 @@ body {
   min-height: 56px;
   padding: 0 1.4rem;
   border-radius: 1.25rem;
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  background: rgba(255, 255, 255, 0.94);
-  color: #13202b;
+  border: 1px solid var(--page-border);
+  background: var(--page-surface-strong);
+  color: var(--ice-dark);
   font-weight: 700;
   letter-spacing: 0.01em;
   transition: 180ms ease;
@@ -141,22 +256,21 @@ body {
 
 .arctic-button:hover {
   transform: translateY(-1px);
-  background: #ffffff;
 }
 
 .arctic-button--ghost {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--ice-text);
+  background: var(--page-surface);
+  color: var(--page-text);
 }
 
 .arctic-button--ghost:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--page-surface-strong);
 }
 
 .arctic-stat {
   border-radius: 1.6rem;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--page-border);
+  background: var(--page-surface);
   padding: 1.25rem;
 }
 
@@ -174,7 +288,7 @@ body {
 .arctic-card-image {
   overflow: hidden;
   border-radius: 0.9rem;
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--page-surface);
 }
 
 .arctic-card-image img {
@@ -200,11 +314,5 @@ body {
 }
 
 .arctic-divider {
-  border-color: rgba(255, 255, 255, 0.12);
-}
-
-.dark .arctic-panel,
-.dark .arctic-panel-strong,
-.dark .arctic-stat {
-  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--page-border);
 }

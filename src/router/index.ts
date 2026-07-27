@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../pages/HomeView.vue';
 import FavoritesView from '../pages/FavoritesView.vue';
 import ProductDetailView from '../pages/ProductDetailView.vue';
+import LoginView from '../pages/LoginView.vue';
+import RegisterView from '../pages/RegisterView.vue';
 import NotFoundView from '../pages/NotFoundView.vue';
 
 const router = createRouter({
@@ -22,6 +24,18 @@ const router = createRouter({
       name: 'product-detail',
       component: ProductDetailView,
       props: true,
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView,
+      meta: { authPage: true },
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: RegisterView,
+      meta: { authPage: true },
     },
     {
       path: '/:pathMatch(.*)*',

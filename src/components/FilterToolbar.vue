@@ -1,5 +1,5 @@
 <template>
-  <section id="catalog" class="rounded-[2rem] border border-white/20 bg-white/10 p-5 shadow-xl shadow-slate-950/5 backdrop-blur-xl dark:bg-slate-900/30">
+  <section id="catalog" class="rounded-[2rem] glass-panel p-5">
     <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
       <div>
         <p class="text-sm font-semibold uppercase tracking-[0.3em] text-fuchsia-500 dark:text-cyan-300">Mission controls</p>
@@ -12,7 +12,7 @@
             :value="search"
             type="search"
             placeholder="Search by title, brand, tag, or category"
-            class="w-full rounded-2xl border border-white/20 bg-white/20 px-4 py-3 pr-12 text-sm text-slate-900 outline-none transition placeholder:text-slate-500 focus:border-fuchsia-400 focus:bg-white/30 dark:text-white dark:placeholder:text-slate-400"
+            class="w-full rounded-2xl border border-slate-900/10 bg-white/80 px-4 py-3 pr-12 text-sm text-slate-900 outline-none transition placeholder:text-slate-500 focus:border-violet-400 focus:bg-white dark:border-white/20 dark:bg-white/10 dark:text-white dark:placeholder:text-slate-400 dark:focus:border-cyan-400"
             @input="$emit('update:search', ($event.target as HTMLInputElement).value)"
           />
           <span class="pointer-events-none absolute inset-y-0 right-4 flex items-center text-slate-400">⌕</span>
@@ -20,7 +20,7 @@
 
         <select
           :value="sortBy"
-          class="rounded-2xl border border-white/20 bg-white/20 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-fuchsia-400 focus:bg-white/30 dark:text-white"
+          class="rounded-2xl border border-slate-900/10 bg-white/80 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-violet-400 focus:bg-white dark:border-white/20 dark:bg-white/10 dark:text-white dark:focus:border-cyan-400"
           @change="$emit('update:sortBy', ($event.target as HTMLSelectElement).value)"
         >
           <option value="featured">Featured orbit</option>
@@ -52,7 +52,7 @@
     </div>
 
     <div class="mt-5 flex flex-wrap gap-3">
-      <label class="inline-flex cursor-pointer items-center gap-3 rounded-2xl border border-white/20 bg-white/15 px-4 py-3 text-sm text-slate-700 dark:text-slate-200">
+      <label class="inline-flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-900/10 bg-white/70 px-4 py-3 text-sm text-slate-700 dark:border-white/20 dark:bg-white/10 dark:text-slate-200">
         <input
           :checked="saleOnly"
           type="checkbox"
@@ -61,7 +61,7 @@
         />
         Show only discounted items
       </label>
-      <label class="inline-flex cursor-pointer items-center gap-3 rounded-2xl border border-white/20 bg-white/15 px-4 py-3 text-sm text-slate-700 dark:text-slate-200">
+      <label class="inline-flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-900/10 bg-white/70 px-4 py-3 text-sm text-slate-700 dark:border-white/20 dark:bg-white/10 dark:text-slate-200">
         <input
           :checked="inStockOnly"
           type="checkbox"
@@ -96,7 +96,7 @@ defineEmits<{
 
 function chipClasses(isActive: boolean): string {
   return isActive
-    ? 'rounded-2xl bg-slate-950 px-4 py-3 text-sm font-medium text-white shadow-lg shadow-slate-950/15 dark:bg-white dark:text-slate-950'
-    : 'rounded-2xl border border-white/20 bg-white/15 px-4 py-3 text-sm font-medium text-slate-700 transition hover:-translate-y-0.5 hover:text-slate-950 dark:text-slate-200 dark:hover:text-white';
+    ? 'rounded-2xl bg-slate-900 px-4 py-3 text-sm font-medium text-white shadow-lg shadow-slate-900/15 dark:bg-white dark:text-slate-950'
+    : 'rounded-2xl border border-slate-900/10 bg-white/70 px-4 py-3 text-sm font-medium text-slate-700 transition hover:-translate-y-0.5 hover:bg-white hover:text-slate-950 dark:border-white/20 dark:bg-white/10 dark:text-slate-200 dark:hover:text-white';
 }
 </script>

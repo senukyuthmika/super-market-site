@@ -25,6 +25,7 @@ function applyTheme(themeValue = theme.value): void {
 }
 
 theme.value = resolveInitialTheme();
+applyTheme();
 
 export function useTheme() {
   const isDark = computed(() => theme.value === 'dark');

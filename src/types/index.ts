@@ -99,4 +99,4 @@ export interface FavoriteProduct {
   thumbnail: string;
 }
 
-export type ProductSort = 'featured' | 'rating' | 'priceAsc' | 'priceDesc' | 'name';
+export type ProductSort = 'featured' | 'rating' | 'priceAsc' | 'priceDesc' | 'name' | 'newest';

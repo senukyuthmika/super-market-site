@@ -1,6 +1,6 @@
 <template>
   <article
-    class="group cursor-pointer overflow-hidden rounded-[1.75rem] border border-white/20 bg-white/10 shadow-xl shadow-slate-950/5 backdrop-blur-xl transition duration-300 hover:-translate-y-1.5 hover:shadow-fuchsia-500/10 dark:bg-slate-900/35"
+    class="group cursor-pointer overflow-hidden rounded-[1.75rem] glass-panel transition duration-300 hover:-translate-y-1.5 hover:shadow-violet-500/10 dark:hover:shadow-cyan-500/10"
     @click="goToDetail"
   >
     <div class="relative overflow-hidden">

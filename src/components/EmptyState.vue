@@ -1,5 +1,5 @@
 <template>
-  <div class="rounded-[2rem] border border-dashed border-white/20 bg-white/10 p-10 text-center shadow-xl shadow-slate-950/5 backdrop-blur-xl dark:bg-slate-900/30">
+  <div class="rounded-[2rem] border border-dashed border-slate-900/15 glass-panel p-10 text-center dark:border-white/20">
     <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-gradient-to-br from-fuchsia-500/20 to-cyan-400/20 text-3xl">
       {{ icon }}
     </div>

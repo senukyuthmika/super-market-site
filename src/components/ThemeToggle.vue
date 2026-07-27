@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/20 bg-white/10 text-slate-900 shadow-lg shadow-slate-950/5 backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white/15 dark:text-slate-100"
+    class="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-900/10 bg-white/80 text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-white dark:border-white/20 dark:bg-white/10 dark:text-slate-100 dark:shadow-lg dark:shadow-slate-950/5 dark:hover:bg-white/15"
     :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
     @click="toggleTheme"
   >

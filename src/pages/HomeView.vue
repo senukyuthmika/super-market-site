@@ -1,10 +1,13 @@
 <template>
   <div class="space-y-8">
     <HeroSection
-  :product-count="products.length"
-  :category-count="categories.length"
-  :average-rating="averageRating"
-/>
+      :product-count="products.length"
+      :category-count="categories.length"
+      :average-rating="averageRating"
+      :active-hero-filter="activeHeroFilter"
+      @filter-new-arrivals="applyNewArrivalsFilter"
+      @filter-sale="applySaleFilter"
+    />
     <StatsStrip :stats="stats" />
 
     <FilterToolbar
@@ -17,7 +20,7 @@
       @update:search="search = $event"
       @update:selected-category="selectedCategory = $event"
       @update:sort-by="sortBy = $event as ProductSort"
-      @update:sale-only="saleOnly = $event"
+      @update:sale-only="handleSaleOnlyChange($event)"
       @update:in-stock-only="inStockOnly = $event"
     />
 
@@ -28,14 +31,14 @@
           {{ filteredProducts.length }} product<span v-if="filteredProducts.length !== 1">s</span> ready for launch
         </h3>
       </div>
-      <div class="rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-slate-600 shadow-lg shadow-slate-950/5 backdrop-blur-xl dark:text-slate-300">
+      <div class="rounded-2xl glass-panel px-4 py-3 text-sm text-slate-600 dark:text-slate-300">
         {{ activeSummary }}
       </div>
     </section>
 
     <section v-if="loading" class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-      <div v-for="card in 6" :key="card" class="animate-pulse rounded-[1.75rem] border border-white/20 bg-white/10 p-5 shadow-xl shadow-slate-950/5 backdrop-blur-xl">
-        <div class="aspect-[4/3] rounded-[1.5rem] bg-slate-300/30 dark:bg-slate-700/30"></div>
+      <div v-for="card in 6" :key="card" class="animate-pulse rounded-[1.75rem] glass-panel p-5">
+        <div class="aspect-[4/3] rounded-[1.5rem] bg-slate-300/40 dark:bg-slate-700/30"></div>
         <div class="mt-5 h-4 w-24 rounded-full bg-slate-300/30 dark:bg-slate-700/30"></div>
         <div class="mt-3 h-7 w-4/5 rounded-full bg-slate-300/30 dark:bg-slate-700/30"></div>
         <div class="mt-3 h-4 w-full rounded-full bg-slate-300/30 dark:bg-slate-700/30"></div>
@@ -88,7 +91,23 @@ const selectedCategory = ref('all');
 const sortBy = ref<ProductSort>('featured');
 const saleOnly = ref(false);
 const inStockOnly = ref(false);
+const newArrivalsOnly = ref(false);
+const minDiscount = ref(0);
+const activeHeroFilter = ref<'new-arrivals' | 'sale' | null>(null);
 const favoritesStore = useFavoritesStore();
+
+const newArrivalCutoff = computed(() => {
+  if (!products.value.length) {
+    return 0;
+  }
+
+  const timestamps = products.value
+    .map((product) => new Date(product.meta.createdAt).getTime())
+    .sort((a, b) => b - a);
+  const thresholdIndex = Math.max(Math.floor(timestamps.length * 0.35) - 1, 0);
+
+  return timestamps[thresholdIndex] ?? 0;
+});
 
 const averageRating = computed(() => {
   if (!products.value.length) {
@@ -109,10 +128,12 @@ const filteredProducts = computed(() => {
         .includes(query);
 
     const matchesCategory = selectedCategory.value === 'all' || product.category === selectedCategory.value;
-    const matchesSale = !saleOnly.value || product.discountPercentage >= 8;
+    const matchesSale = !saleOnly.value || product.discountPercentage >= minDiscount.value;
     const matchesStock = !inStockOnly.value || product.stock > 0;
+    const matchesNewArrivals =
+      !newArrivalsOnly.value || new Date(product.meta.createdAt).getTime() >= newArrivalCutoff.value;
 
-    return matchesSearch && matchesCategory && matchesSale && matchesStock;
+    return matchesSearch && matchesCategory && matchesSale && matchesStock && matchesNewArrivals;
   });
 
   switch (sortBy.value) {
@@ -124,6 +145,10 @@ const filteredProducts = computed(() => {
       return [...result].sort((a, b) => b.price - a.price);
     case 'name':
       return [...result].sort((a, b) => a.title.localeCompare(b.title));
+    case 'newest':
+      return [...result].sort(
+        (a, b) => new Date(b.meta.createdAt).getTime() - new Date(a.meta.createdAt).getTime(),
+      );
     case 'featured':
     default:
       return [...result].sort(
@@ -157,8 +182,39 @@ const stats = computed(() => [
 
 const activeSummary = computed(() => {
   const categoryText = selectedCategory.value === 'all' ? 'all sectors' : toTitleCase(selectedCategory.value);
-  return `Viewing ${categoryText}${saleOnly.value ? ', discounted only' : ''}${inStockOnly.value ? ', in-stock only' : ''}${search.value ? `, matching “${search.value}”` : ''}.`;
+  return `Viewing ${categoryText}${newArrivalsOnly.value ? ', new arrivals' : ''}${saleOnly.value ? ', discounted only' : ''}${inStockOnly.value ? ', in-stock only' : ''}${search.value ? `, matching “${search.value}”` : ''}.`;
 });
+
+function scrollToCatalog(): void {
+  document.getElementById('catalog')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function applyNewArrivalsFilter(): void {
+  activeHeroFilter.value = 'new-arrivals';
+  newArrivalsOnly.value = true;
+  saleOnly.value = false;
+  minDiscount.value = 0;
+  sortBy.value = 'newest';
+  scrollToCatalog();
+}
+
+function applySaleFilter(): void {
+  activeHeroFilter.value = 'sale';
+  newArrivalsOnly.value = false;
+  saleOnly.value = true;
+  minDiscount.value = 8;
+  sortBy.value = 'priceDesc';
+  scrollToCatalog();
+}
+
+function handleSaleOnlyChange(value: boolean): void {
+  saleOnly.value = value;
+  minDiscount.value = value ? 8 : 0;
+  if (value) {
+    activeHeroFilter.value = null;
+    newArrivalsOnly.value = false;
+  }
+}
 
 async function loadData(): Promise<void> {
   loading.value = true;
