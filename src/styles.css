@@ -209,6 +209,44 @@ html.dark ::selection {
   color: var(--ice-text-soft);
 }
 
+.checkout-field {
+  display: grid;
+  gap: 0.5rem;
+  color: var(--ice-text-faint);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.checkout-field input,
+.checkout-field select {
+  min-height: 3.25rem;
+  width: 100%;
+  border: 1px solid var(--page-border);
+  border-radius: 0.9rem;
+  background: var(--page-surface-strong);
+  padding: 0 1rem;
+  color: var(--page-text);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: normal;
+  outline: none;
+  text-transform: none;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.checkout-field input::placeholder {
+  color: var(--page-text-faint);
+  opacity: 0.7;
+}
+
+.checkout-field input:focus,
+.checkout-field select:focus {
+  border-color: rgba(217, 70, 239, 0.7);
+  box-shadow: 0 0 0 3px rgba(217, 70, 239, 0.12);
+}
+
 .arctic-nav-chip {
   display: inline-flex;
   align-items: center;

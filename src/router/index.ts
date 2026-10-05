@@ -4,6 +4,7 @@ import FavoritesView from '../pages/FavoritesView.vue';
 import ProductDetailView from '../pages/ProductDetailView.vue';
 import LoginView from '../pages/LoginView.vue';
 import RegisterView from '../pages/RegisterView.vue';
+import CheckoutView from '../pages/CheckoutView.vue';
 import NotFoundView from '../pages/NotFoundView.vue';
 
 const router = createRouter({
@@ -36,6 +37,11 @@ const router = createRouter({
       name: 'register',
       component: RegisterView,
       meta: { authPage: true },
+    },
+    {
+      path: '/checkout',
+      name: 'checkout',
+      component: CheckoutView,
     },
     {
       path: '/:pathMatch(.*)*',

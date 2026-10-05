@@ -63,16 +63,16 @@
           <div class="space-y-6">
             <div class="flex flex-wrap items-center gap-3">
               <span class="arctic-label">{{ formattedCategory }}</span>
-              <span class="text-sm font-semibold text-white/70">
+              <span class="text-sm font-semibold text-slate-700 dark:text-white/70">
                 ★ {{ product.rating.toFixed(1) }}
               </span>
-              <span class="text-sm font-semibold text-white/55">
+              <span class="text-sm font-semibold text-slate-500 dark:text-white/55">
                 {{ product.availabilityStatus }}
               </span>
             </div>
 
             <div>
-              <p class="text-sm uppercase tracking-[0.28em] text-white/40">
+              <p class="text-sm uppercase tracking-[0.28em] text-slate-500 dark:text-white/40">
                 {{ product.brand ?? 'Astra Select' }}
               </p>
 
@@ -87,7 +87,7 @@
 
             <!-- Minimal price block -->
             <div class="border-t border-b border-white/12 py-5">
-              <p class="text-xs uppercase tracking-[0.28em] text-white/40">
+              <p class="text-xs uppercase tracking-[0.28em] text-slate-500 dark:text-white/40">
                 Current offer
               </p>
 
@@ -97,10 +97,10 @@
                 </p>
 
                 <div class="pb-1">
-                  <p class="text-base text-white/35 line-through">
+                  <p class="text-base text-slate-400 dark:text-white/35 line-through">
                     {{ formatCurrency(product.price) }}
                   </p>
-                  <p class="text-sm font-semibold text-white/65">
+                  <p class="text-sm font-semibold text-slate-600 dark:text-white/65">
                     Save {{ Math.round(product.discountPercentage) }}%
                   </p>
                 </div>
@@ -119,7 +119,7 @@
                   :class="
                     selectedSize === size
                       ? 'border-white bg-white text-[#13202b]'
-                      : 'border-white/18 bg-white/6 text-white hover:bg-white/10'
+                      : 'border-slate-900/15 bg-white/40 text-slate-800 hover:bg-white/70 dark:border-white/18 dark:bg-white/6 dark:text-white dark:hover:bg-white/10'
                   "
                   @click="selectedSize = size"
                 >
@@ -140,7 +140,7 @@
                   :class="
                     selectedColor === color.name
                       ? 'border-white bg-white text-[#13202b]'
-                      : 'border-white/18 bg-white/6 text-white hover:bg-white/10'
+                      : 'border-slate-900/15 bg-white/40 text-slate-800 hover:bg-white/70 dark:border-white/18 dark:bg-white/6 dark:text-white dark:hover:bg-white/10'
                   "
                   @click="selectedColor = color.name"
                 >
@@ -157,17 +157,17 @@
             <div class="grid gap-4 sm:grid-cols-3">
               <article class="arctic-stat">
                 <p class="arctic-label">Stock</p>
-                <p class="mt-3 text-2xl font-extrabold text-white">{{ product.stock }}</p>
+                <p class="mt-3 text-2xl font-extrabold text-slate-900 dark:text-white">{{ product.stock }}</p>
               </article>
 
               <article class="arctic-stat">
                 <p class="arctic-label">SKU</p>
-                <p class="mt-3 text-lg font-bold text-white">{{ product.sku }}</p>
+                <p class="mt-3 text-lg font-bold text-slate-900 dark:text-white">{{ product.sku }}</p>
               </article>
 
               <article class="arctic-stat">
                 <p class="arctic-label">Minimum</p>
-                <p class="mt-3 text-2xl font-extrabold text-white">
+                <p class="mt-3 text-2xl font-extrabold text-slate-900 dark:text-white">
                   {{ product.minimumOrderQuantity }}
                 </p>
               </article>
@@ -195,14 +195,14 @@
             <div class="grid gap-4 sm:grid-cols-2">
               <article class="arctic-stat">
                 <p class="arctic-label">Shipping</p>
-                <p class="mt-3 text-sm leading-7 text-white/72">
+                <p class="mt-3 text-sm leading-7 text-slate-600 dark:text-white/72">
                   {{ product.shippingInformation }}
                 </p>
               </article>
 
               <article class="arctic-stat">
                 <p class="arctic-label">Warranty & returns</p>
-                <p class="mt-3 text-sm leading-7 text-white/72">
+                <p class="mt-3 text-sm leading-7 text-slate-600 dark:text-white/72">
                   {{ product.warrantyInformation }} · {{ product.returnPolicy }}
                 </p>
               </article>
@@ -216,22 +216,22 @@
         <article class="arctic-panel p-6">
           <p class="arctic-label">Physical specs</p>
 
-          <div class="mt-5 space-y-4 text-sm leading-7 text-white/72">
+          <div class="mt-5 space-y-4 text-sm leading-7 text-slate-600 dark:text-white/72">
             <div class="flex items-center justify-between gap-4 border-b border-white/10 pb-3">
               <span>Width</span>
-              <strong class="text-white">{{ product.dimensions.width }} cm</strong>
+              <strong class="text-slate-900 dark:text-white">{{ product.dimensions.width }} cm</strong>
             </div>
             <div class="flex items-center justify-between gap-4 border-b border-white/10 pb-3">
               <span>Height</span>
-              <strong class="text-white">{{ product.dimensions.height }} cm</strong>
+              <strong class="text-slate-900 dark:text-white">{{ product.dimensions.height }} cm</strong>
             </div>
             <div class="flex items-center justify-between gap-4 border-b border-white/10 pb-3">
               <span>Depth</span>
-              <strong class="text-white">{{ product.dimensions.depth }} cm</strong>
+              <strong class="text-slate-900 dark:text-white">{{ product.dimensions.depth }} cm</strong>
             </div>
             <div class="flex items-center justify-between gap-4">
               <span>Weight</span>
-              <strong class="text-white">{{ product.weight }} kg</strong>
+              <strong class="text-slate-900 dark:text-white">{{ product.weight }} kg</strong>
             </div>
           </div>
 
@@ -239,7 +239,7 @@
             <span
               v-for="tag in product.tags"
               :key="tag"
-              class="rounded-full border border-white/15 bg-white/8 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-white/70"
+              class="rounded-full border border-slate-900/10 bg-white/50 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-600 dark:border-white/15 dark:bg-white/8 dark:text-white/70"
             >
               #{{ tag }}
             </span>
@@ -265,17 +265,17 @@
             >
               <div class="flex flex-wrap items-center justify-between gap-3">
                 <div>
-                  <p class="font-semibold text-white">{{ review.reviewerName }}</p>
-                  <p class="text-xs uppercase tracking-wide text-white/35">
+                  <p class="font-semibold text-slate-900 dark:text-white">{{ review.reviewerName }}</p>
+                  <p class="text-xs uppercase tracking-wide text-slate-400 dark:text-white/35">
                     {{ formatReviewDate(review.date) }}
                   </p>
                 </div>
-                <span class="text-sm font-semibold text-white/70">
+                <span class="text-sm font-semibold text-slate-700 dark:text-white/70">
                   ★ {{ review.rating.toFixed(1) }}
                 </span>
               </div>
 
-              <p class="mt-3 text-sm leading-7 text-white/72">
+              <p class="mt-3 text-sm leading-7 text-slate-600 dark:text-white/72">
                 {{ review.comment }}
               </p>
             </article>

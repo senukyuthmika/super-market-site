@@ -54,7 +54,7 @@
         </div>
         <div class="mt-4 grid gap-3 sm:grid-cols-2">
           <button type="button" class="rounded-2xl border border-white/20 px-4 py-3 text-sm font-semibold transition hover:bg-white/10 dark:border-slate-300 dark:hover:bg-slate-100" @click="cartStore.clear">Clear cart</button>
-          <button type="button" class="rounded-2xl bg-gradient-to-r from-fuchsia-600 to-cyan-500 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-fuchsia-500/20">Simulate checkout</button>
+          <button type="button" class="rounded-2xl bg-gradient-to-r from-fuchsia-600 to-cyan-500 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-fuchsia-500/20" @click="router.push('/checkout'); uiStore.closeCartDrawer()">Simulate checkout</button>
         </div>
       </div>
     </aside>
@@ -63,10 +63,12 @@
 
 <script setup lang="ts">
 import EmptyState from './EmptyState.vue';
+import { useRouter } from 'vue-router';
 import { useCartStore } from '../stores/cart';
 import { useUiStore } from '../stores/ui';
 import { discountedPrice, formatCurrency } from '../utils/format';
 
 const cartStore = useCartStore();
 const uiStore = useUiStore();
+const router = useRouter();
 </script>
