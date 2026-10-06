@@ -92,7 +92,6 @@ const sortBy = ref<ProductSort>('featured');
 const saleOnly = ref(false);
 const inStockOnly = ref(false);
 const newArrivalsOnly = ref(false);
-const minDiscount = ref(0);
 const activeHeroFilter = ref<'new-arrivals' | 'sale' | null>(null);
 const favoritesStore = useFavoritesStore();
 
@@ -128,7 +127,7 @@ const filteredProducts = computed(() => {
         .includes(query);
 
     const matchesCategory = selectedCategory.value === 'all' || product.category === selectedCategory.value;
-    const matchesSale = !saleOnly.value || product.discountPercentage >= minDiscount.value;
+    const matchesSale = !saleOnly.value || product.discountPercentage > 0;
     const matchesStock = !inStockOnly.value || product.stock > 0;
     const matchesNewArrivals =
       !newArrivalsOnly.value || new Date(product.meta.createdAt).getTime() >= newArrivalCutoff.value;
@@ -170,7 +169,7 @@ const stats = computed(() => [
   },
   {
     label: 'Sale-ready products',
-    value: formatCompactNumber(products.value.filter((product) => product.discountPercentage >= 8).length),
+    value: formatCompactNumber(products.value.filter((product) => product.discountPercentage > 0).length),
     hint: 'Discount filter instantly isolates products that feel campaign-ready.',
   },
   {
@@ -193,7 +192,6 @@ function applyNewArrivalsFilter(): void {
   activeHeroFilter.value = 'new-arrivals';
   newArrivalsOnly.value = true;
   saleOnly.value = false;
-  minDiscount.value = 0;
   sortBy.value = 'newest';
   scrollToCatalog();
 }
@@ -202,14 +200,12 @@ function applySaleFilter(): void {
   activeHeroFilter.value = 'sale';
   newArrivalsOnly.value = false;
   saleOnly.value = true;
-  minDiscount.value = 8;
   sortBy.value = 'priceDesc';
   scrollToCatalog();
 }
 
 function handleSaleOnlyChange(value: boolean): void {
   saleOnly.value = value;
-  minDiscount.value = value ? 8 : 0;
   if (value) {
     activeHeroFilter.value = null;
     newArrivalsOnly.value = false;
