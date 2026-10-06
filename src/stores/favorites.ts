@@ -18,9 +18,13 @@ export const useFavoritesStore = defineStore('favorites', {
     isFavorite(productId: number): boolean {
       return this.items.some((item) => item.id === productId);
     },
+    remove(productId: number): void {
+      this.items = this.items.filter((item) => item.id !== productId);
+      this.persist();
+    },
     toggle(product: Product): void {
       if (this.isFavorite(product.id)) {
-        this.items = this.items.filter((item) => item.id !== product.id);
+        this.remove(product.id);
       } else {
         this.items.unshift({
           id: product.id,
@@ -32,8 +36,8 @@ export const useFavoritesStore = defineStore('favorites', {
           brand: product.brand,
           thumbnail: product.thumbnail,
         });
+        this.persist();
       }
-      this.persist();
     },
   },
 });
